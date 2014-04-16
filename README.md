@@ -7,7 +7,9 @@ t5x configurator is based on the [processing language] (https://www.processing.o
 Processing has the big advantage since it is based and built with java it supports multiple platforms, such as Windows32, Windows64, MacOS and Linux.
 
 Instructions: 
-- extract the archive's content into your Processing Project folder, e.g. C:\Users\<your username>\Documents\Processing 
+- download and install [processing] (https://www.processing.org/)
+- download and install [controlp5 library](http://www.sojamo.de/libraries/controlP5/)
+- place t5x_configurator.pde into your Processing Project folder, e.g. C:\Users\<your username>\Documents\Processing 
 - update your t5x transmitter with the latest firmware
 - ensure the t5x is turned off and connect it to your computer
 - start the application, select the COM-port and do your configuration.
