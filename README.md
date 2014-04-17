@@ -10,8 +10,8 @@ Instructions:
 - download and install [processing] (https://www.processing.org/)
 - download and install [controlp5 library](http://www.sojamo.de/libraries/controlP5/)
 - place t5x_configurator.pde into your Processing Project folder, e.g. C:\Users\<your username>\Documents\Processing 
-- update your t5x transmitter with the latest firmware
-- ensure the t5x is turned off and connect it to your computer
+- update your t5x transmitter with the [latest firmware](https://github.com/ckonecny/t5x)
+- ensure the transmitter is turned off and connect it to your computer
 - start the application, select the COM-port and do your configuration.
 - the apply button applies the settings to the RAM of the t5x. doing that way you can try your settings and play around with them.
 - the save button stores the settings into the EEPROM flash of the t5x.
