@@ -1,7 +1,10 @@
 t5x configurator
 ================
+configuration GUI for the Arduino based [t5x](https://github.com/ckonecny/t5x) RC transmitter.
 
-An configuration GUI for the Arduino based [t5x](https://github.com/ckonecny/t5x) RC transmitter.
+
+![alt tag](https://raw.github.com/ckonecny/t5x_configurator/branch/resources/images/t5x_configurator.PNG)
+
 
 t5x configurator is based on the [processing language] (https://www.processing.org/) and heavily uses the [controlp5 library](http://www.sojamo.de/libraries/controlP5/).
 Processing has the big advantage since it is based and built with java it supports multiple platforms, such as Windows32, Windows64, MacOS and Linux.
