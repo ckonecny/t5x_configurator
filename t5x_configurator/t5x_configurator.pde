@@ -38,7 +38,7 @@ Numberbox[] gVFMSwitchLevelsNb = new Numberbox[FLIGHTMODES];
 
 // Aircraft Telemetry Stuff
 Numberbox[]   gV_A1Nb     = new Numberbox[3];
-Numberbox[]   gV_A2Nb     = new Numberbox[3];
+Numberbox[]   gV_A2Nb     = new Numberbox[4];
 
 // FlightTimer
 Numberbox      gFlightTimerNb;
@@ -264,6 +264,15 @@ void setup() {
                   .setMultiplier(-0.01)
                   .setDecimalPrecision(1)
                   ;
+
+  gV_A2Nb[3] = cp5.addNumberbox("gA2VoltageDividerRatio")
+                  .setPosition(80,260)
+                  .setSize(30,12)
+                  .setRange(1,10)
+                  .setMultiplier(-0.1)
+                  .setDecimalPrecision(0)
+                  .setLabel("Divider Ratio")
+                  ;
                   
                   
   gV_TXNb[0] = cp5.addNumberbox("gTXcells")
@@ -302,6 +311,9 @@ void setup() {
     gV_TXNb[i].captionLabel().style().marginTop=-14;
     gV_TXNb[i].captionLabel().style().marginLeft=35;
   }
+  
+    gV_A2Nb[3].captionLabel().style().marginTop=-14;
+    gV_A2Nb[3].captionLabel().style().marginLeft=-60;
 
   gRSSINb[0] = cp5.addNumberbox("RSSI_ORANGE")
                 .setLabel("% RSSI warning")
@@ -809,9 +821,10 @@ void ExtractReceivedProfileData(byte[] aMsg)
   gV_A1Nb[1].setValue(float(aMsg[40])/10);
   gV_A1Nb[2].setValue(float(aMsg[41])/10);
 
-  gV_A2Nb[0].setValue(aMsg[42]);
+  gV_A2Nb[0].setValue(aMsg[42] & 0x0F);
   gV_A2Nb[1].setValue(float(aMsg[43])/10);
   gV_A2Nb[2].setValue(float(aMsg[44])/10);
+  gV_A2Nb[3].setValue(byte((aMsg[42] & 0xF0) >> 4));
   
   
   // extract values from byte array
@@ -850,7 +863,7 @@ void SendProfileData()
   tMsg[40]=byte(gV_A1Nb[1].getValue()*10);
   tMsg[41]=byte(gV_A1Nb[2].getValue()*10);
 
-  tMsg[42]=byte(gV_A2Nb[0].getValue());
+  tMsg[42]=byte(byte(gV_A2Nb[0].getValue()) + byte(byte(gV_A2Nb[3].getValue()) << 4));   // bit 0-3: cell count, bit 4-7: voltage divider ratio
   tMsg[43]=byte(gV_A2Nb[1].getValue()*10);
   tMsg[44]=byte(gV_A2Nb[2].getValue()*10);
   
@@ -869,7 +882,7 @@ void SendProfileData()
   
   for (int i=0;i<tMsg.length;i++)
   {
-//    println(i + ":" + (tMsg[i] & 0xFF));
+    println(i + ":" + hex(byte(tMsg[i] & 0xFF)));
     gSerialPort.write(tMsg[i]);
   }
   
@@ -932,7 +945,7 @@ void SendDeviceProperties()
   tMsg[1] = byte(0xFE & 0xFF);
   tMsg[2] = byte(0x44 & 0xFF);
   
-  println("sending device properties...");
+//  println("sending device properties...");
 
   for(int a=0;a<8;a++)    // analog 0-7
   {
@@ -984,7 +997,7 @@ void SendDeviceProperties()
   
   for (int i=0;i<tMsg.length;i++)
   {
-    println(i + ":" + (tMsg[i] & 0xFF));
+//    println(i + ":" + (tMsg[i] & 0xFF));
     gSerialPort.write(tMsg[i]);
   } 
 }
